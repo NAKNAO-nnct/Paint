@@ -1,6 +1,7 @@
 package frame;
 
 import motion.*;
+import sun.plugin2.util.ColorUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,14 +17,45 @@ public class Frame {
         JFrame start = new JFrame(title);
         start.setSize(width, height);
         start.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        start.setLayout(new BorderLayout());
+        start.setLayout(new FlowLayout());
         JOptionPane.showMessageDialog(start, "ぷろ2課題","ぺいんとそふと2018-trompot", INFORMATION_MESSAGE);
 
+        // 本体
         JFrame frame = new JFrame(title);
         frame.setSize(width, height);
+        frame.setBackground(Color.BLACK);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(null);
         frame.setResizable(false);
+
+
+        // パネル
+//		JPanel panel = new JPanel();
+//		panel.setBackground(Color.white);
+////		panel.setSize(10,10);
+//        panelManage.setPreferredSize(new Dimension(10,10));
+//        panel.setLayout(new BorderLayout());
+//        Container contentPane = frame.getContentPane();
+//        panel.setVisible(true);
+//        contentPane.add(panel, BorderLayout.CENTER);
+//        frame.setVisible(true);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.white);
+        panel.setBounds(0,0,800,800);
+//        panel.setPreferredSize(new Dimension(500,500));500
+        Container container = frame.getContentPane();
+        container.add(panel);
+        panel.setVisible(true);
+
+        // PanelManager
+        JPanel panelManage = new JPanel();
+        panelManage.setLayout(new BorderLayout());
+        panelManage.setBackground(new Color(176, 183, 187));
+//        panelManage.setPreferredSize(new Dimension(200,height));
+        panelManage.setBounds(width-150,0,150, height);
+        container.add(panelManage);
+        panelManage.setVisible(true);
 
 
         // メニューバーの設置
@@ -54,18 +86,10 @@ public class Frame {
         setMenuBar(menuBar, menu2, items);
 
 
-		// パネル
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.white);
-		panel.setLayout(null);
-		panel.setSize(10,10);
-        Container contentPane = frame.getContentPane();
-        panel.setVisible(true);
-        contentPane.add(panel);
         frame.setVisible(true);
 
 
-		// Manager Frame
+        // Manager Frame
         // JComboBoxリスナー
         JComboBox jComboBox = new JComboBox();
 		JFrame config = new JFrame("Manager");
