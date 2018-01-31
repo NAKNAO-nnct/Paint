@@ -13,12 +13,11 @@ public class PanelManager implements ChangeListener, ActionListener{
 
     private String[] combobox_lave = {"ペン", "直線", "三角形", "消しゴム"};
 
-    private JFrame frame;
     private JPanel panel;
+    private JPanel paintPanel;
     private JSlider slider = new JSlider();
     private JLabel label = new JLabel();
     private JComboBox comboBox = new JComboBox(combobox_lave);
-    private JButton button = new JButton();
     private MousePaintListener mousePaintListener;
 
     private Graphics2D g2d;
@@ -26,24 +25,22 @@ public class PanelManager implements ChangeListener, ActionListener{
     PanelManager(){
     }
 
-    public void setPanelManager(JFrame frame, JPanel panel, int width, int height, MousePaintListener mousePaintListener, Graphics g){
-        this.frame = frame;
+    public void setPanelManager(JPanel panel){
         this.panel = panel;
-        setFrame(width, height);
+        setFrame();
+    }
+
+    // setPanle
+    public void setPanel(MousePaintListener mousePaintListener, Graphics g){
         this.mousePaintListener = mousePaintListener;
         this.g2d = (Graphics2D)g;
-
     }
+
     // Frame
-    public void setFrame(int width, int height){
+    public void setFrame(){
         // JComboBox
-        setJComboBox(width);
+        setJComboBox();
         setSlider();
-//        setBotton(width);
-        this.frame.setVisible(true);
-        this.frame.setBounds(1000,0, width, height);
-        this.frame.setLayout(new FlowLayout());
-        this.frame.setResizable(false);
     }
 
     // Slider
@@ -53,24 +50,23 @@ public class PanelManager implements ChangeListener, ActionListener{
         panel.add(slider);
         int lave_text = slider.getValue();
         setLavel(lave_text, panel);
-        System.out.println("Masager");
-        this.frame.getContentPane().add(panel, BorderLayout.CENTER);
+        this.panel.add(panel, BorderLayout.CENTER);
     }
 
     // ComboBox
-    public void setJComboBox(int width){
+    public void setJComboBox(){
         comboBox.addActionListener(this);
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(width,50));
         panel.add(comboBox);
-        this.frame.getContentPane().add(panel, BorderLayout.NORTH);
+        this.panel.add(panel, BorderLayout.NORTH);
     }
 
     // setLavel(太さ)
     public void setLavel(int a, JPanel panel){
         label.setText(String.valueOf(a));
         panel.add(label);
-        this.frame.getContentPane().add(panel, BorderLayout.CENTER);
+        this.panel.add(panel);
+//        this.frame.getContentPane().add(this.panel);
     }
 
 //    // Clearボタン
@@ -122,7 +118,7 @@ public class PanelManager implements ChangeListener, ActionListener{
         else if(comboBox.getSelectedIndex() == 3) {
             this.mousePaintListener.countSet(0);
             mousePaintListener.setCash_color(false);
-            g2d.setColor(panel.getBackground());
+            g2d.setColor(paintPanel.getBackground());
         }
 
     }
@@ -131,6 +127,10 @@ public class PanelManager implements ChangeListener, ActionListener{
     public void setGraphics(Graphics2D g2d){
         this.g2d = g2d;
     }
+    public void setPaintPanel(JPanel panel){
+        this.paintPanel = panel;
+    }
+
 
     // getter
     // JSlider

@@ -40,22 +40,30 @@ public class Frame {
 //        contentPane.add(panel, BorderLayout.CENTER);
 //        frame.setVisible(true);
 
+        Container container = frame.getContentPane();
+
         JPanel panel = new JPanel();
         panel.setBackground(Color.white);
-        panel.setBounds(0,0,800,800);
-//        panel.setPreferredSize(new Dimension(500,500));500
-        Container container = frame.getContentPane();
+        panel.setBounds(10,10,500,500);
         container.add(panel);
         panel.setVisible(true);
+
+
 
         // PanelManager
         JPanel panelManage = new JPanel();
         panelManage.setLayout(new BorderLayout());
         panelManage.setBackground(new Color(176, 183, 187));
-//        panelManage.setPreferredSize(new Dimension(200,height));
-        panelManage.setBounds(width-150,0,150, height);
+        panelManage.setBounds(width-200,0,200, height);
+
+        PanelManager config_panel = new PanelManager();
+        config_panel.setPaintPanel(panel);
+        config_panel.setPanelManager(panelManage);
+
         container.add(panelManage);
         panelManage.setVisible(true);
+
+
 
 
         // メニューバーの設置
@@ -93,7 +101,6 @@ public class Frame {
         // JComboBoxリスナー
         JComboBox jComboBox = new JComboBox();
 		JFrame config = new JFrame("Manager");
-		PanelManager config_panel = new PanelManager();
 
 		// 現状触れるな
 		Version_log_point log = new Version_log_point();
@@ -103,7 +110,7 @@ public class Frame {
 		MousePaintListener MousePain = new MousePaintListener();
 		MousePain.subMousePaintListener(g, log, config_panel);
 
-        config_panel.setPanelManager(config, panel,310,500, MousePain, g);
+        config_panel.setPanel(MousePain, g);
         config_panel.setGraphics((Graphics2D)(g));
 
 		// メニューリスナー
